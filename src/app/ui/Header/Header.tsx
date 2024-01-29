@@ -1,13 +1,9 @@
-import AppBar from '@mui/material/AppBar/AppBar'
-import Toolbar from '@mui/material/Toolbar/Toolbar'
-import Typography from '@mui/material/Typography/Typography'
-import Button from '@mui/material/Button/Button'
-import LinearProgress from '@mui/material/LinearProgress'
-import { useAppSelector, selectStatus } from 'app'
-import { selectIsLoggedIn, authThunks } from 'features'
-import { useActions } from 'common'
+import { selectStatus, useAppSelector } from 'app'
+import { authThunks, selectIsLoggedIn } from 'features'
+import { Loader, useActions } from 'common'
 import s from './header.module.css'
-import { Link } from '@mui/material'
+import { IonButton, IonHeader, IonText, IonTitle } from '@ionic/react'
+
 
 export const Header = () => {
     const status = useAppSelector(selectStatus)
@@ -19,26 +15,26 @@ export const Header = () => {
     }
 
     return (
-        <AppBar position="static">
-            <Toolbar className={s.toolbar}>
-                <Typography variant="h6">
-                    <Link href={'/'} color={'inherit'} style={{ textDecoration: 'none' }}>
-                        Check Flow
-                    </Link>
-                </Typography>
+        <>
+            <IonHeader className={s.header}>
+                <IonTitle>
+                    <a href={'/'}>
+                        <IonText color={'light'}>Check Flow</IonText>
+                    </a>
+                </IonTitle>
 
                 {isLoggedIn && (
-                    <Button color="inherit" onClick={logoutHandler}>
-                        LogOut
-                    </Button>
+                    <IonButton fill={'clear'} onClick={logoutHandler}>
+                        <IonText color={'light'}>LOGOUT</IonText>
+                    </IonButton>
                 )}
                 {!isLoggedIn && (
-                    <Link href={'/login'} color={'inherit'} style={{ textDecoration: 'none' }}>
-                        <Typography variant={'button'}>LogIn</Typography>
-                    </Link>
+                    <a href={'/login'} style={{ paddingRight: 20 }}>
+                        <IonText color={'light'}>LOGIN</IonText>
+                    </a>
                 )}
-            </Toolbar>
-            {status === 'loading' && <LinearProgress />}
-        </AppBar>
+            </IonHeader>
+            {status === 'loading' && <Loader />}
+        </>
     )
 }

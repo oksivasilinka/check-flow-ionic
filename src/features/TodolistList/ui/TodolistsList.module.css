@@ -1,7 +1,8 @@
-.addItemFormWrapper {
-    padding: 20px;
+.page {
+    padding-top: 70px;
+    justify-content: start;
 }
 
-.todolistWrapper {
-    padding: 10px;
+.wrapper {
+    padding-top: 30px;
 }

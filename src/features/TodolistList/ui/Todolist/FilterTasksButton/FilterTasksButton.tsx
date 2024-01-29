@@ -1,7 +1,7 @@
-import Button from '@mui/material/Button'
 import { useActions } from 'common'
 import { FilterValues, TodolistDomain, todolistsActions } from 'features'
 import s from './FilterTasksButton.module.css'
+import { IonButton } from '@ionic/react'
 
 type Props = {
     todolist: TodolistDomain
@@ -17,30 +17,27 @@ export const FilterTasksButton = ({ todolist }: Props) => {
 
     return (
         <div className={s.buttonWrapper}>
-            <Button
+            <IonButton
                 className={s.button}
                 title={'All'}
-                color={'primary'}
-                variant={filter === 'all' ? 'contained' : 'outlined'}
+                color={filter === 'all' ? 'primary' : 'secondary'}
                 onClick={() => changeTodolistFilterHandler('all')}
             >
                 All
-            </Button>
-            <Button
+            </IonButton>
+            <IonButton
                 title={'Active'}
-                color={'primary'}
-                variant={filter === 'active' ? 'contained' : 'outlined'}
+                color={filter === 'active' ? 'primary' : 'secondary'}
                 onClick={() => changeTodolistFilterHandler('active')}
             >
                 Active
-            </Button>
-            <Button
-                color={'primary'}
-                variant={filter === 'completed' ? 'contained' : 'outlined'}
+            </IonButton>
+            <IonButton
+                color={filter === 'completed' ? 'primary' : 'secondary'}
                 onClick={() => changeTodolistFilterHandler('completed')}
             >
                 Completed
-            </Button>
+            </IonButton>
         </div>
     )
 }

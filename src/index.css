@@ -9,3 +9,48 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+
+:root {
+    --ion-color-primary: #e91e63;
+    --ion-color-primary-rgb: 233, 30, 99;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #9e1342;
+    --ion-color-primary-tint: #eb447c;
+
+    --ion-color-secondary: #fc699b;
+    --ion-color-secondary-rgb: 252, 105, 155;
+    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-contrast-rgb: 255, 255, 255;
+    --ion-color-secondary-shade: #fc558b;
+    --ion-color-secondary-tint: #ff89b1;
+
+    --ion-color-tertiary: #737373;
+    --ion-color-tertiary-rgb: 115,115,115;
+    --ion-color-tertiary-contrast: #ffffff;
+    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+    --ion-color-tertiary-shade: #4d4d4d;
+    --ion-color-tertiary-tint: #ababab;
+
+    --ion-color-light: #ffffff;
+    --ion-color-light-rgb: 255,255,255;
+    --ion-color-light-contrast: #000000;
+    --ion-color-light-contrast-rgb: 0, 0, 0;
+    --ion-color-light-shade: #ffe1f4;
+    --ion-color-light-tint: #faecf4;
+
+    --ion-color-dark: #101010;
+    --ion-color-dark-rgb: 10,10,10;
+    --ion-color-dark-contrast: #ffffff;
+    --ion-color-dark-contrast-rgb: 255, 255, 255;
+    --ion-color-dark-shade: #000000;
+    --ion-color-dark-tint: #383a3e;
+
+    --ion-color-danger: #f04141;
+    --ion-color-danger-rgb: 245, 61, 61;
+    --ion-color-danger-contrast: #ffffff;
+    --ion-color-danger-contrast-rgb: 255, 255, 255;
+    --ion-color-danger-shade: #d33939;
+    --ion-color-danger-tint: #f25454;
+}

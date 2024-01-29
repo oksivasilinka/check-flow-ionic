@@ -1,11 +1,9 @@
 import { useEffect } from 'react'
-import CircularProgress from '@mui/material/CircularProgress'
-import { authThunks, Login, TodolistsList } from 'features'
-import { ErrorSnackbar, useActions } from 'common'
+import { authThunks } from 'features'
+import { ErrorSnackbar, Loader, useActions } from 'common'
 import { Header, Routing, selectIsInitialized, useAppSelector } from 'app'
-import s from './App.module.css'
 import '@ionic/react/css/core.css'
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react'
+import { IonApp } from '@ionic/react'
 import '@ionic/react/css/normalize.css'
 import '@ionic/react/css/structure.css'
 import '@ionic/react/css/typography.css'
@@ -16,10 +14,6 @@ import '@ionic/react/css/text-alignment.css'
 import '@ionic/react/css/text-transformation.css'
 import '@ionic/react/css/flex-utils.css'
 import '@ionic/react/css/display.css'
-import { BrowserRouter, Redirect, Route } from 'react-router-dom'
-import { IonReactRouter } from '@ionic/react-router'
-
-setupIonicReact()
 
 
 export const App = () => {
@@ -27,16 +21,11 @@ export const App = () => {
     const { me } = useActions(authThunks)
 
     useEffect(() => {
-        console.log(isInitialized)
         me()
     }, [])
 
     if (!isInitialized) {
-        return (
-            <div className={s.CircularProgress}>
-                <CircularProgress />
-            </div>
-        )
+        return <Loader />
     }
 
     return (

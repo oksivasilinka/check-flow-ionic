@@ -1,9 +1,8 @@
 import { EditableSpan, useActions } from 'common'
-import IconButton from '@mui/material/IconButton/IconButton'
-import { Delete } from '@mui/icons-material'
 import { TodolistDomain, todolistsThunks } from 'features'
 import s from './TodolistTitle.module.css'
-import Typography from '@mui/material/Typography/Typography'
+import { IonButton, IonIcon, IonText } from '@ionic/react'
+import { closeOutline } from 'ionicons/icons'
 
 type Props = {
     todolist: TodolistDomain
@@ -21,11 +20,12 @@ export const TodolistTitle = ({ todolist }: Props) => {
     }
 
     return (
-        <Typography variant={'h6'} className={s.titleBlock} color={'primary'}>
-            <EditableSpan value={title} callback={changeTodolistTitleHandler} />
-            <IconButton className={s.iconDelete} onClick={removeTodolistHandler} disabled={entityStatus === 'loading'}>
-                <Delete />
-            </IconButton>
-        </Typography>
+        <IonText color="primary" className={s.titleBlock}>
+            <EditableSpan title value={title} callback={changeTodolistTitleHandler} />
+            <IonButton className={s.iconDelete} fill={'clear'} disabled={entityStatus === 'loading'}
+                       onClick={removeTodolistHandler}>
+                <IonIcon color={'tertiary'} size={'medium'} icon={closeOutline}> </IonIcon>
+            </IonButton>
+        </IonText>
     )
 }

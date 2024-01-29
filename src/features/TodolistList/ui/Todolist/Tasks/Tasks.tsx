@@ -1,5 +1,5 @@
 import { Task, TaskResponse, TodolistDomain } from 'features'
-import s from './Tasks.module.css'
+import { IonText } from '@ionic/react'
 
 type Props = {
     tasks: TaskResponse[]
@@ -17,11 +17,11 @@ export const Tasks = ({ tasks, todolist }: Props) => {
     }
 
     return (
-        <div className={s.tasksWrapper}>
+        <>
             {tasksForTodolist?.map((t) => {
                 return <Task key={t.id} task={t} />
             })}
-            <div>{!tasks.length && <span className={s.text}>Create your first task!</span>}</div>
-        </div>
+            {!tasks.length && <IonText color={'tertiary'}>Create your first task!</IonText>}
+        </>
     )
 }

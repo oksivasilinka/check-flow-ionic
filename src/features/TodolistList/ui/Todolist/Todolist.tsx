@@ -1,7 +1,8 @@
 import { memo, useEffect } from 'react'
 import { AddItemForm, useActions } from 'common'
 import s from './Todolist.module.css'
-import { TodolistTitle, tasksThunks, Tasks, TaskResponse, TodolistDomain, FilterTasksButton } from 'features'
+import { FilterTasksButton, TaskResponse, Tasks, tasksThunks, TodolistDomain, TodolistTitle } from 'features'
+import { IonCard } from '@ionic/react'
 
 type Props = {
     tasks: TaskResponse[]
@@ -21,7 +22,7 @@ export const Todolist = memo(({ tasks, todolist }: Props) => {
     }
 
     return (
-        <div className={s.todolistWrapper}>
+        <IonCard className={s.todolistWrapper}>
             <TodolistTitle todolist={todolist} />
             <AddItemForm
                 addItem={addTaskCallback}
@@ -30,6 +31,6 @@ export const Todolist = memo(({ tasks, todolist }: Props) => {
             />
             <Tasks tasks={tasks} todolist={todolist} />
             <FilterTasksButton todolist={todolist} />
-        </div>
+        </IonCard>
     )
 })

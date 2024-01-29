@@ -1,9 +1,8 @@
-import IconButton from '@mui/material/IconButton/IconButton'
-import TextField from '@mui/material/TextField/TextField'
-import { ChangeEvent, KeyboardEvent, memo, useState } from 'react'
-import { AddBox } from '@mui/icons-material'
+import { KeyboardEvent, memo, useState } from 'react'
 import { BaseResponse } from 'common'
 import s from './AddItemForm.module.css'
+import { IonButton, IonIcon, IonInput, IonText } from '@ionic/react'
+import { addCircleOutline } from 'ionicons/icons'
 
 type Props = {
     addItem: (title: string) => Promise<any>
@@ -13,7 +12,7 @@ type Props = {
 
 export const AddItemForm = memo(({ addItem, disabled, label }: Props) => {
     const [title, setTitle] = useState('')
-    const [error, setError] = useState<string | null>(null)
+    const [error, setError] = useState<string | undefined>(undefined)
 
     const addItemHandler = () => {
         if (title.trim() !== '') {
@@ -31,13 +30,13 @@ export const AddItemForm = memo(({ addItem, disabled, label }: Props) => {
         }
     }
 
-    const changeItemHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+    const changeItemHandler = (e: Event) => {
+        setTitle((e.currentTarget as HTMLInputElement).value)
     }
 
-    const addItemOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const addItemOnKeyDown = (e: KeyboardEvent) => {
         if (error) {
-            setError(null)
+            setError(undefined)
         }
         if (e.key === 'Enter') {
             addItemHandler()
@@ -45,22 +44,22 @@ export const AddItemForm = memo(({ addItem, disabled, label }: Props) => {
     }
 
     return (
-        <div className={s.textField}>
-            <TextField
-                size={'small'}
-                variant="outlined"
-                error={!!error}
-                value={title}
-                onChange={changeItemHandler}
-                onKeyDown={addItemOnKeyDown}
-                label={label}
-                helperText={error}
-                disabled={disabled}
-                fullWidth={true}
-            />
-            <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
-                <AddBox />
-            </IconButton>
+        <div className={s.inputWrapper}>
+            <div className={s.input}>
+                <IonInput fill={'outline'}
+                          placeholder={label}
+                          color={error ? 'danger' : 'primary'}
+                          disabled={disabled}
+                          value={title}
+                          onIonInput={changeItemHandler}
+                          onKeyDown={addItemOnKeyDown}
+                          errorText={error}
+                />
+                {!!error && <IonText className={s.error} color={'danger'}>{error}</IonText>}</div>
+            <IonButton fill={'clear'} disabled={disabled} onClick={addItemHandler}>
+                <IonIcon size={'large'} icon={addCircleOutline}></IonIcon>
+            </IonButton>
+
         </div>
     )
 })

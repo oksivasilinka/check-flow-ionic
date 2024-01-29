@@ -1,11 +1,10 @@
-import Checkbox from '@mui/material/Checkbox/Checkbox'
-import IconButton from '@mui/material/IconButton/IconButton'
-import { Delete } from '@mui/icons-material'
-import { ChangeEvent, memo } from 'react'
+import { memo } from 'react'
 import { useAppSelector } from 'app'
 import { EditableSpan, TaskStatuses, useActions } from 'common'
 import { TaskResponse, tasksThunks } from 'features'
 import s from './Task.module.css'
+import { IonButton, IonCheckbox, IonIcon } from '@ionic/react'
+import { trashOutline } from 'ionicons/icons'
 
 type Props = {
     task: TaskResponse
@@ -20,8 +19,8 @@ export const Task = memo(({ task }: Props) => {
         deleteTask({ id, todolistId: task.todoListId })
     }
 
-    const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
+    const changeStatusHandler = (e: Event) => {
+        const status = (e.currentTarget as HTMLInputElement).checked ? TaskStatuses.Completed : TaskStatuses.New
         updateTask({ todolistId: task.todoListId, model: { status }, id })
     }
 
@@ -31,12 +30,15 @@ export const Task = memo(({ task }: Props) => {
 
     return (
         <div key={task.id} className={task.status ? `${s.wrapper} ${s.isDone} ` : `${s.wrapper}`}>
-            <Checkbox checked={task.status === TaskStatuses.Completed} color="primary" onChange={changeStatusHandler} />
+            <IonCheckbox className={s.checkbox} checked={task.status === TaskStatuses.Completed}
+                         onIonChange={changeStatusHandler}
+                         color="primary" />
 
             <EditableSpan value={title} callback={changeTitleHandler} />
-            <IconButton onClick={deleteTaskHandler} disabled={status === 'loading'}>
-                <Delete />
-            </IconButton>
+
+            <IonButton fill={'clear'} disabled={status === 'loading'} onClick={deleteTaskHandler}>
+                <IonIcon color={'tertiary'} size={'medium'} icon={trashOutline}> </IonIcon>
+            </IonButton>
         </div>
     )
 })

@@ -1,13 +1,7 @@
-import Snackbar from '@mui/material/Snackbar'
-import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import { appActions, useAppDispatch, useAppSelector } from 'app'
 import { selectError } from 'features'
-import Typography from '@mui/material/Typography/Typography'
-import { forwardRef, SyntheticEvent } from 'react'
-
-const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
-})
+import { SyntheticEvent } from 'react'
+import { IonToast } from '@ionic/react'
 
 export const ErrorSnackbar = () => {
     const error = useAppSelector(selectError)
@@ -20,11 +14,18 @@ export const ErrorSnackbar = () => {
         dispatch(appActions.setError({ error: null }))
     }
 
+    if (!error) {
+        return null
+    }
+
     return (
-        <Snackbar open={!!error} autoHideDuration={3000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                <Typography variant={'body1'}>{error} 😠</Typography>
-            </Alert>
-        </Snackbar>
+        <IonToast
+            isOpen={!!error}
+            onDidDismiss={handleClose}
+            header="Error"
+            message={`${error} 😠`}
+            buttons={['OK']}
+            position={'bottom'} color={'danger'} duration={3000}
+        />
     )
 }

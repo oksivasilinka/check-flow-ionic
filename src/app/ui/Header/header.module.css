@@ -1,4 +1,8 @@
-.toolbar {
+.header {
     display: flex;
     justify-content: space-between;
+    background-color: #e91e63;
+    color: white;
+    align-items: center;
+    height: 70px;
 }

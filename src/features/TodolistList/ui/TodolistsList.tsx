@@ -1,12 +1,10 @@
-import Grid from '@mui/material/Grid/Grid'
-import Paper from '@mui/material/Paper/Paper'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Redirect } from 'react-router-dom'
 import { AddItemForm, useActions } from 'common'
-import { Todolist, todolistsThunks, selectTodolists, selectIsLoggedIn, selectTasks } from 'features'
+import { selectIsLoggedIn, selectTasks, selectTodolists, Todolist, todolistsThunks } from 'features'
 import { useAppSelector } from 'app'
 import s from './TodolistsList.module.css'
-import { IonPage } from '@ionic/react'
+import { IonCol, IonContent, IonGrid, IonInfiniteScroll, IonInfiniteScrollContent, IonPage, IonRow } from '@ionic/react'
 
 export const TodolistsList = () => {
     const todolists = useAppSelector(selectTodolists)
@@ -14,37 +12,51 @@ export const TodolistsList = () => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const { getTodolists, addTodolist } = useActions(todolistsThunks)
 
+    const infiniteScrollRef = useRef<HTMLIonInfiniteScrollElement>(null)
+
     useEffect(() => {
-        if (!isLoggedIn) return
-        getTodolists()
+        if (isLoggedIn) {
+            getTodolists()
+        } else {
+            return
+        }
     }, [])
 
     const addTodolistCallback = (title: string) => {
         return addTodolist({ title }).unwrap()
     }
 
+    const handleInfiniteScroll = () => {
+        infiniteScrollRef.current?.complete()
+    }
+
     if (!isLoggedIn) {
-        return <Redirect to={'login'} />
+        return <Redirect to={'/login'} />
     }
 
     return (
-        <IonPage>
-            <Grid container className={s.addItemFormWrapper}>
-                <AddItemForm addItem={addTodolistCallback} label={'Enter the name of the list'} />
-            </Grid>
-            <Grid container spacing={3}>
-                {todolists?.map((tl) => {
-                    const allTasks = tasks[tl.id]
+        <IonPage className={s.page}>
+            <IonContent>
+                <IonGrid fixed className={s.wrapper}>
+                    <IonRow>
+                        <AddItemForm addItem={addTodolistCallback} label={'Enter the name of the list'} />
+                    </IonRow>
+                    <IonRow>
+                        {todolists?.map((tl) => {
+                            const allTasks = tasks[tl.id]
 
-                    return (
-                        <Grid key={tl.id} item>
-                            <Paper elevation={4} className={s.todolistWrapper}>
-                                <Todolist tasks={allTasks} todolist={tl} />
-                            </Paper>
-                        </Grid>
-                    )
-                })}
-            </Grid>
+                            return (
+                                <IonCol key={tl.id}>
+                                    <Todolist tasks={allTasks} todolist={tl} />
+                                </IonCol>
+                            )
+                        })}
+                    </IonRow>
+                </IonGrid>
+                <IonInfiniteScroll threshold="100px" ref={infiniteScrollRef} onIonInfinite={handleInfiniteScroll}>
+                    <IonInfiniteScrollContent />
+                </IonInfiniteScroll>
+            </IonContent>
         </IonPage>
     )
 }

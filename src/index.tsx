@@ -3,6 +3,9 @@ import { createRoot } from 'react-dom/client'
 import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
 import { App, store } from 'app'
+import { setupIonicReact } from '@ionic/react'
+
+setupIonicReact()
 
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container)
