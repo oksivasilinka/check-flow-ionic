@@ -55,7 +55,8 @@ export const AddItemForm = memo(({ addItem, disabled, label }: Props) => {
                           onKeyDown={addItemOnKeyDown}
                           errorText={error}
                 />
-                {!!error && <IonText className={s.error} color={'danger'}>{error}</IonText>}</div>
+                {!!error && <IonText className={s.error} color={'danger'}>{error}</IonText>}
+            </div>
             <IonButton fill={'clear'} disabled={disabled} onClick={addItemHandler}>
                 <IonIcon size={'large'} icon={addCircleOutline}></IonIcon>
             </IonButton>
